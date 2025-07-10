@@ -16,26 +16,15 @@ function file.Read( filename, path )
 
 end
 
-function file.Write( filename, contents )
-
-	local f = file.Open( filename, "wb", "DATA" )
-	if ( !f ) then return false end
-
-	f:Write( contents )
-	f:Close()
-
-	return true
-
-end
-
-function file.Append( filename, contents )
-
-	local f = file.Open( filename, "ab", "DATA" )
-	if ( !f ) then return false end
+local function AB_WB( filename, contents, type )
+	local f = file.Open( filename, type, "DATA" )
+	if !f then return false end
 
 	f:Write( contents )
 	f:Close()
 
 	return true
-
 end
+
+function file.Write( a, b ) return AB_WB( a, b, "wb" ) end
+function file.Append( a, b ) return AB_WB( a, b, "ab" ) end
