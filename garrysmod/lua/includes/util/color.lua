@@ -188,12 +188,18 @@ end
 
 function COLOR:Lerp( target_clr, frac )
 
-	return Color(
-		Lerp( frac, self.r, target_clr.r ),
-		Lerp( frac, self.g, target_clr.g ),
-		Lerp( frac, self.b, target_clr.b ),
-		Lerp( frac, self.a, target_clr.a )
-	)
+	if frac > 1 then return target_clr end
+	if frac < 0 then return self end
+
+	local ar, ag, ab, aa = self.r, self.g, self.b, self.a
+    local br, bg, bb, ba = target_clr.r, target_clr.g, target_clr.b, target_clr.a
+
+    return Color(
+        ar + (br - ar) * frac,
+        ag + (bg - ag) * frac,
+        ab + (bb - ab) * frac,
+        aa + (ba - aa) * frac
+    )
 
 end
 
